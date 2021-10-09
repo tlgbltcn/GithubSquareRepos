@@ -2,7 +2,7 @@
 buildscript {
     ext {
         gradle_version = '7.0.2'
-        kotlin_compailer_version= '1.5.30'
+        kotlin_compailer_version = '1.5.30'
         core_ktx_version = '1.6.0'
         lifecycle_ktx_version = '2.4.0-rc01'
         collection_ktx_version = '1.1.0'
@@ -29,16 +29,25 @@ buildscript {
         espresso_core_version = '3.4.0'
         arch_core_test_version = '2.1.0'
         mock_web_server_version = '4.9.1'
+        secrets_gradle_plugin_version = '2.0.0'
     }
     repositories {
         google()
         mavenCentral()
+        maven {
+            url = uri("https://maven.pkg.github.com/google/secrets-gradle-plugin")
+            credentials {
+                password = project.findProperty("TOKEN") ?: System.getenv("TOKEN")
+            }
+        }
+
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_compailer_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_compailer_version"
+        classpath "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:$secrets_gradle_plugin_version"
     }
 }
 

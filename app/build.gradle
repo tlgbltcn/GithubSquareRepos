@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'kotlinx-serialization'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -23,10 +24,17 @@ android {
     }
 
     buildTypes {
+
+        debug {
+            buildConfigField "String", "API_URL", "\"https://api.github.com/orgs/\""
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "API_URL", "\"https://api.github.com/orgs/\""
         }
+
     }
 
     compileOptions {
