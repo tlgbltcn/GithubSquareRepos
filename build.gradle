@@ -30,6 +30,7 @@ buildscript {
         arch_core_test_version = '2.1.0'
         mock_web_server_version = '4.9.1'
         secrets_gradle_plugin_version = '2.0.0'
+        flow_redux_version = '0.8.0'
     }
     repositories {
         google()
