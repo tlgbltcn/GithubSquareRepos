@@ -100,7 +100,7 @@ data class RepositoryItem(
     @SerialName("mirror_url")
     val mirrorUrl: String?, // git:git.example.com/octocat/Hello-World
     @SerialName("name")
-    val name: String?, // Hello-World
+    val name: String, // Hello-World
     @SerialName("node_id")
     val nodeId: String?, // MDEwOlJlcG9zaXRvcnkxMjk2MjY5
     @SerialName("notifications_url")

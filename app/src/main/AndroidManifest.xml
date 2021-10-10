@@ -15,7 +15,7 @@
         android:theme="@style/Theme.GithubSquareRepos"
         tools:ignore="AllowBackup">
         <activity
-            android:name=".feature.list.MainActivity"
+            android:name=".feature.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.GithubSquareRepos.NoActionBar">

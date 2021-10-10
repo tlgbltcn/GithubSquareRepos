@@ -12,11 +12,10 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 @FlowPreview
 @ExperimentalCoroutinesApi
 @HiltViewModel
-class MainViewModel
+class ReposViewModel
 @Inject constructor(repository: GithubRepository) : ViewModel() {
 
     private var stateMachine: RepositoryListStateMachine = RepositoryListStateMachine(
