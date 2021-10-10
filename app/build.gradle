@@ -77,10 +77,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodel_ktx_version"
     implementation "androidx.collection:collection-ktx:$collection_ktx_version"
 
-    // FlowRedux
-    implementation "com.freeletics.flowredux:dsl:$flow_redux_version"
-    implementation "com.freeletics.flowredux:flowredux:$flow_redux_version"
-
     // Compose
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"

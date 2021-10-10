@@ -16,12 +16,7 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @HiltViewModel
 class ReposViewModel
-@Inject constructor(repository: GithubRepository) : ViewModel() {
-
-    private var stateMachine: RepositoryListStateMachine = RepositoryListStateMachine(
-        repository = repository,
-        scope = viewModelScope
-    )
+@Inject constructor(private val repository: GithubRepository) : ViewModel() {
 
     private var _repos = MutableStateFlow<RepositoryListState>(Loading)
     val repos = _repos.asStateFlow()
@@ -32,15 +27,9 @@ class ReposViewModel
 
     private fun fetchRepos() {
         viewModelScope.launch {
-            stateMachine.state.collect { state ->
-                _repos.value = state
+            repository.getRepos().collect {
+                _repos.value = it
             }
-        }
-    }
-
-    fun dispatch(action: RepositoryListAction) {
-        viewModelScope.launch {
-            stateMachine.dispatch(action)
         }
     }
 }

@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.tlgbltcn.githubsquarerepos.data.model.RepositoryItem
 import com.tlgbltcn.githubsquarerepos.feature.list.ReposPage
 import com.tlgbltcn.githubsquarerepos.feature.list.ReposViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -47,7 +48,7 @@ fun NavGraph() {
 
 class NavActions(navController: NavHostController) {
 
-    val gotoDetails: () -> Unit = {
+    val gotoDetails: (item: RepositoryItem) -> Unit = {
         navController.navigate(Screen.Details.route)
     }
 

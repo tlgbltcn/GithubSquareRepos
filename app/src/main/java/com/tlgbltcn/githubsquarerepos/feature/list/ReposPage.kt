@@ -32,12 +32,10 @@ fun ReposPage(
     viewModel: ReposViewModel
 ) {
 
-    val repos = viewModel.repos.collectAsState().value
-
-    when (repos) {
+    when (val repos = viewModel.repos.collectAsState().value) {
         is Loading -> LoadingView()
         is Error -> ErrorView(message = repos.message)
-        is Content -> ReposList(repos = repos.list)
+        is Content -> ReposList(repos = repos.repos)
     }
 }
 
@@ -68,14 +66,16 @@ fun RepositoryItemRow(item: RepositoryItem) {
         elevation = 2.dp,
         shape = RoundedCornerShape(corner = CornerSize(16.dp))
     ) {
-        Image(
-            modifier = Modifier
-                .size(36.dp)
-                .padding(end = 16.dp),
-            alignment = Alignment.TopEnd,
-            painter = painterResource(id = R.drawable.ic_baseline_bookmark_24),
-            contentDescription = null,
-        )
+        if (item.isBookmarked) {
+            Image(
+                modifier = Modifier
+                    .size(36.dp)
+                    .padding(end = 16.dp),
+                alignment = Alignment.TopEnd,
+                painter = painterResource(id = R.drawable.ic_baseline_bookmark_24),
+                contentDescription = null,
+            )
+        }
         Column(
             modifier = Modifier
                 .padding(start = 16.dp, top = 16.dp, end = 8.dp, bottom = 16.dp)
