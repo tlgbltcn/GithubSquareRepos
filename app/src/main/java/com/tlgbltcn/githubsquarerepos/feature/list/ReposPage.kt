@@ -21,7 +21,6 @@ import androidx.compose.material.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.tlgbltcn.githubsquarerepos.R
 
@@ -38,7 +37,7 @@ fun ReposPage(
     when (repos) {
         is Loading -> LoadingView()
         is Error -> ErrorView(message = repos.message)
-        is RepositoriesContent -> ReposList(repos = repos.list)
+        is Content -> ReposList(repos = repos.list)
     }
 }
 
