@@ -43,7 +43,7 @@ data class RepositoryItem(
     val url: String?, // https://api.github.com/repos/octocat/Hello-World
     @SerialName("watchers_count")
     val watchersCount: Int?, // 80
-    var isBookmarked: Boolean = false
+    val isBookmarked: Boolean = false
 ) {
     companion object {
         const val TABLE_NAME = "repositories"

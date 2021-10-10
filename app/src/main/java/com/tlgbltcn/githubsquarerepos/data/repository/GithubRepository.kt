@@ -25,7 +25,7 @@ class GithubRepository @Inject constructor(
     suspend fun getRepos() = flow {
         var state: RepositoryListState = Loading
         ioHandler(
-            shouldFetch = this@GithubRepository::hasDatabaseAnyRecord,
+            shouldFetch = { hasDatabaseAnyRecord().not() },
             onCall = service::getRepos,
             onStoreData = this@GithubRepository::insertRepositories,
             onQuery = this@GithubRepository::getRepositoriesFromLocal,
