@@ -42,7 +42,7 @@ class RepositoryListStateMachine constructor(
             onSuccess = { item ->
                 OverrideState(
                     newState = RepositoriesContent(
-                        list = item
+                        list = item ?: listOf()
                     )
                 )
             },
