@@ -7,16 +7,13 @@ import com.tlgbltcn.githubsquarerepos.data.model.RepositoryItem
 interface RepositoryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertRepositories(repositories: List<RepositoryItem>)
-
-    @Update
-    suspend fun updateRepositories(repositories: List<RepositoryItem>)
+    fun insertRepositories(repositories: List<RepositoryItem>)
 
     @Query("SELECT COUNT(*) FROM repositories")
-    suspend fun getRepositoryCount(): Int
+    fun getRepositoryCount(): Int
 
     @Query("SELECT * FROM repositories")
-    suspend fun getRepositories(): List<RepositoryItem>
+    fun getRepositories(): List<RepositoryItem>
 
     @Query("SELECT * FROM repositories WHERE repoId=:id")
     suspend fun getRepository(id: Long): RepositoryItem
