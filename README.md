@@ -22,6 +22,7 @@ Fetching data from the network via repository pattern and saving them to local d
 - [Retrofit2](https://github.com/square/retrofit) REST APIs.
 - [OkHttp3](https://github.com/square/okhttp) is used to implementing interceptor, logging web server.
 - [kotlinx.serialization](https://kotlinlang.org/docs/serialization.html) is used to process of converting data used by an application to a format that can be transferred over a network or stored in a database or a file.
+- [Screet Gradle Plugin](https://github.com/google/secrets-gradle-plugin) a Gradle plugin for providing your secrets securely to your Android project.
 - [Truth](https://github.com/google/truth) makes your test assertions and failure messages more readable.
 
 To build this project you should add your own token to the ```local.properties``` under the project root with this format. 
