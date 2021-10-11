@@ -5,6 +5,10 @@
 <p align="center">The GithubSquareRepos application is sample based on MVVM architecture.</br>
 Fetching data from the network via repository pattern and saving them to local data source.</p>
 
+<p align="center">
+  <img src="https://media.giphy.com/media/bPTWd0sRms9sf2pwTP/giphy.gif" alt="animated" />
+</p>
+
 #### What Does GithubSquareRepos consist of?
 
 - [Kotlin](https://kotlinlang.org/) 
