@@ -1,5 +1,6 @@
 package com.tlgbltcn.githubsquarerepos.ui.navigation
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
@@ -9,12 +10,20 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.tlgbltcn.githubsquarerepos.data.model.RepositoryItem
+import com.tlgbltcn.githubsquarerepos.feature.detail.DetailsPage
+import com.tlgbltcn.githubsquarerepos.feature.detail.DetailsViewModel
 import com.tlgbltcn.githubsquarerepos.feature.list.ReposPage
 import com.tlgbltcn.githubsquarerepos.feature.list.ReposViewModel
+import com.tlgbltcn.githubsquarerepos.ui.navigation.DestinationArgKey.ID
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
+
+object DestinationArgKey {
+    const val ID = "id"
+}
+
+@ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
@@ -24,9 +33,9 @@ fun NavGraph() {
 
     NavHost(navController, startDestination = Screen.Repos.route) {
 
-        composable(Screen.Repos.route) {
+        composable(Screen.Repos.route) { navBackStackEntry ->
             val viewModel: ReposViewModel = viewModel(
-                factory = HiltViewModelFactory(LocalContext.current, it)
+                factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
             )
             ReposPage(
                 viewModel = viewModel,
@@ -34,13 +43,14 @@ fun NavGraph() {
             )
         }
 
-        composable(Screen.Details.route) {
-            val viewModel: ReposViewModel = viewModel(
-                factory = HiltViewModelFactory(LocalContext.current, it)
+        composable("${Screen.Details.route}/{$ID}") { navBackStackEntry ->
+            val viewModel: DetailsViewModel = viewModel(
+                factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
             )
-            ReposPage(
+            DetailsPage(
                 viewModel = viewModel,
-                actions = actions
+                id = navBackStackEntry.arguments?.getString(ID)?.toLong(),
+                onBack = actions.navigateBack
             )
         }
     }
@@ -48,8 +58,8 @@ fun NavGraph() {
 
 class NavActions(navController: NavHostController) {
 
-    val gotoDetails: (item: RepositoryItem) -> Unit = {
-        navController.navigate(Screen.Details.route)
+    val gotoDetails: (id: Long) -> Unit = { id: Long ->
+        navController.navigate("${Screen.Details.route}/$id")
     }
 
     val navigateBack: () -> Unit = {

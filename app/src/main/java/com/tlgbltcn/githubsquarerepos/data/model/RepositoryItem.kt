@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 @Entity(tableName = RepositoryItem.TABLE_NAME)
 data class RepositoryItem(
     @PrimaryKey(autoGenerate = true)
-    var repoId: Long? = null,
+    var repoId: Long = 0,
     @SerialName("contributors_url")
     val contributorsUrl: String?, // https://api.github.com/repos/octocat/Hello-World/contributors
     @SerialName("deployments_url")

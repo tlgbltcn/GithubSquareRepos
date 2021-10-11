@@ -87,6 +87,7 @@ dependencies {
     implementation "androidx.compose.runtime:runtime:$compose_version"
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     implementation "androidx.activity:activity-compose:$activity_compose_version"
+    implementation "androidx.constraintlayout:constraintlayout-compose:$constraint_layout_compose_version"
 
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_ktx_version"

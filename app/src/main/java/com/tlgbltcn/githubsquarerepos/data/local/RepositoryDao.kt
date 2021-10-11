@@ -17,4 +17,10 @@ interface RepositoryDao {
 
     @Query("SELECT * FROM repositories")
     suspend fun getRepositories(): List<RepositoryItem>
+
+    @Query("SELECT * FROM repositories WHERE repoId=:id")
+    suspend fun getRepository(id: Long): RepositoryItem
+
+    @Query("UPDATE repositories SET isBookmarked=:value WHERE repoId=:id")
+    suspend fun updateRepository(value: Boolean, id: Long)
 }

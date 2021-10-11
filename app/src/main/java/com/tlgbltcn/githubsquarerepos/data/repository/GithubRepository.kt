@@ -44,4 +44,9 @@ class GithubRepository @Inject constructor(
 
     private suspend fun insertRepositories(repositories: List<RepositoryItem>) =
         dao.insertRepositories(repositories = repositories)
+
+    suspend fun getRepository(id: Long) = dao.getRepository(id)
+
+    suspend fun updateRepository(value: Boolean, id: Long) =
+        dao.updateRepository(value = value, id = id)
 }

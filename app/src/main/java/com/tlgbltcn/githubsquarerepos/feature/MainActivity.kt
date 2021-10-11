@@ -3,12 +3,14 @@ package com.tlgbltcn.githubsquarerepos.feature
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.material.ExperimentalMaterialApi
 import com.tlgbltcn.githubsquarerepos.ui.navigation.NavGraph
 import com.tlgbltcn.githubsquarerepos.ui.theme.GithubSquareReposTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
+@ExperimentalMaterialApi
 @FlowPreview
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
