@@ -38,11 +38,11 @@ class GithubRepository @Inject constructor(
         emit(state)
     }.flowOn(dispatcher)
 
-    private suspend fun hasDatabaseAnyRecord() = dao.getRepositoryCount() > 0
+    private fun hasDatabaseAnyRecord() = dao.getRepositoryCount() > 0
 
-    private suspend fun getRepositoriesFromLocal() = dao.getRepositories()
+    private fun getRepositoriesFromLocal() = dao.getRepositories()
 
-    private suspend fun insertRepositories(repositories: List<RepositoryItem>) =
+    private fun insertRepositories(repositories: List<RepositoryItem>) =
         dao.insertRepositories(repositories = repositories)
 
     suspend fun getRepository(id: Long) = dao.getRepository(id)
