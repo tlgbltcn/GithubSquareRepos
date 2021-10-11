@@ -25,6 +25,8 @@ Fetching data from the network via repository pattern and saving them to local d
 - [Screet Gradle Plugin](https://github.com/google/secrets-gradle-plugin) a Gradle plugin for providing your secrets securely to your Android project.
 - [Truth](https://github.com/google/truth) makes your test assertions and failure messages more readable.
 
+Note: The data layer of the project was developed on the basis of [FlowRedux by Freeletics](#https://github.com/freeletics/FlowRedux) in previous versions. You can see the infrastructure/flowRedux branch to examine it.
+
 To build this project you should add your own token to the ```local.properties``` under the project root with this format. 
 
 ``` 
