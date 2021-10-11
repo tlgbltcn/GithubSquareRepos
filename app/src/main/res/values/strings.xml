@@ -3,4 +3,13 @@
 
     <string name="repos_screen">Repos</string>
     <string name="details_screen">Details</string>
+
+    <string name="bookmark">Added to Bookmars.</string>
+    <string name="removed">Removed from Bookmars.</string>
+    <string name="description">Description</string>
+    <string name="language">Language</string>
+    <string name="url">Url</string>
+    <string name="stargazers_count">Stargazers Count</string>
+    <string name="watchers_count">Watchers Count</string>
+    <string name="update_date">Update Date</string>
 </resources>

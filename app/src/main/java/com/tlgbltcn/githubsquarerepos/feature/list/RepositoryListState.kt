@@ -6,8 +6,11 @@ sealed class RepositoryListState
 
 object Loading : RepositoryListState()
 data class Error(val code: Int?, val message: String?) : RepositoryListState()
-data class RepositoriesContent(
-    val list: List<RepositoryItem> = listOf()
+data class Content(
+    val repos: List<RepositoryItem> = listOf()
 ) : RepositoryListState()
+data class Item(
+    val item: RepositoryItem
+): RepositoryListState()
 
 

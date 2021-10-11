@@ -21,10 +21,12 @@ import androidx.compose.material.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import com.tlgbltcn.githubsquarerepos.R
+import com.tlgbltcn.githubsquarerepos.util.visible
 
+@ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
@@ -33,59 +35,89 @@ fun ReposPage(
     viewModel: ReposViewModel
 ) {
 
-    val repos = viewModel.repos.collectAsState().value
+    viewModel.fetchRepos()
 
-    when (repos) {
-        is Loading -> LoadingView()
-        is Error -> ErrorView(message = repos.message)
-        is RepositoriesContent -> ReposList(repos = repos.list)
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                modifier = Modifier.fillMaxWidth(),
+                title = {
+                    Text(
+                        text = stringResource(id = R.string.app_name)
+                    )
+                },
+                backgroundColor = Color.White,
+                elevation = 4.dp
+            )
+        }
+    ) {
+        when (val repos = viewModel.repos.collectAsState().value) {
+            is Loading -> LoadingView()
+            is Error -> ErrorView(message = repos.message)
+            is Content -> ReposList(repos = repos.repos, actions = actions)
+        }
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
-fun ReposList(repos: List<RepositoryItem>) {
-
-    val list = remember { repos }
+fun ReposList(
+    actions: NavActions,
+    repos: List<RepositoryItem>
+) {
 
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 0.dp),
     ) {
         items(
-            items = list,
+            items = repos,
             itemContent = {
-                RepositoryItemRow(item = it)
+                RepositoryItemRow(
+                    item = it,
+                    navigateToDetails = { id ->
+                        actions.gotoDetails(id)
+                    })
             }
         )
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
-fun RepositoryItemRow(item: RepositoryItem) {
+fun RepositoryItemRow(item: RepositoryItem, navigateToDetails: (Long) -> Unit) {
 
     Card(
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 8.dp)
             .fillMaxWidth(),
         elevation = 2.dp,
-        shape = RoundedCornerShape(corner = CornerSize(16.dp))
+        shape = RoundedCornerShape(corner = CornerSize(16.dp)),
+        onClick = {
+            navigateToDetails.invoke(item.repoId)
+        }
     ) {
         Image(
             modifier = Modifier
                 .size(36.dp)
-                .padding(end = 16.dp),
+                .padding(end = 16.dp)
+                .visible { item.isBookmarked },
             alignment = Alignment.TopEnd,
             painter = painterResource(id = R.drawable.ic_baseline_bookmark_24),
             contentDescription = null,
         )
+
         Column(
             modifier = Modifier
                 .padding(start = 16.dp, top = 16.dp, end = 8.dp, bottom = 16.dp)
                 .fillMaxWidth()
         ) {
             Text(text = item.name, style = MaterialTheme.typography.h6)
-            if (item.description != null) {
-                Text(text = item.description, style = MaterialTheme.typography.subtitle2)
-            }
+
+            Text(
+                text = item.description ?: "",
+                style = MaterialTheme.typography.subtitle2,
+                modifier = Modifier.visible { item.description != null })
+
             Row(modifier = Modifier.padding(top = 8.dp)) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_baseline_star_rate_24),
