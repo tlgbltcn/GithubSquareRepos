@@ -44,7 +44,7 @@ import kotlinx.coroutines.FlowPreview
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.tlgbltcn.githubsquarerepos.util.visible
 
-const val IMG_URL = "https://pbs.twimg.com/profile_images/1414990564408262661/r6YemvF9_400x400.jpg"
+const val IMG_URL = "https://xms-production-f.squarecdn.com/xms/assets/public-web-styles/social/default-80476ca4a2046167a78eae04dead82fc956b41cfb7f0f65b71e4884354cad5d0.jpg"
 
 @ExperimentalCoroutinesApi
 @FlowPreview
@@ -285,7 +285,7 @@ private fun Fab(
         Image(
             painter = painterResource(id = R.drawable.ic_baseline_bookmark_24),
             colorFilter = ColorFilter.tint(
-                color = if (isBookmarked) Color(0xFF4562F3) else Color(0xFF888888)
+                color = if (isBookmarked) Color(0xFFDD6955) else Color(0xFF888888)
             ),
             contentDescription = null
         )

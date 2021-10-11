@@ -19,11 +19,13 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.tlgbltcn.githubsquarerepos.R
+import com.tlgbltcn.githubsquarerepos.util.languageColor
 import com.tlgbltcn.githubsquarerepos.util.visible
 
 @ExperimentalMaterialApi
@@ -120,6 +122,7 @@ fun RepositoryItemRow(item: RepositoryItem, navigateToDetails: (Long) -> Unit) {
 
             Row(modifier = Modifier.padding(top = 8.dp)) {
                 Image(
+                    modifier = Modifier.size(20.dp).align(CenterVertically),
                     painter = painterResource(id = R.drawable.ic_baseline_star_rate_24),
                     contentDescription = null
                 )
@@ -131,7 +134,7 @@ fun RepositoryItemRow(item: RepositoryItem, navigateToDetails: (Long) -> Unit) {
                         .size(12.dp)
                         .align(Alignment.CenterVertically),
                         onDraw = {
-                            drawCircle(color = Color.Red)
+                            drawCircle(color = item.language.languageColor())
                         })
                     Spacer(modifier = Modifier.padding(start = 8.dp))
                     Text(text = item.language)
@@ -140,3 +143,4 @@ fun RepositoryItemRow(item: RepositoryItem, navigateToDetails: (Long) -> Unit) {
         }
     }
 }
+
