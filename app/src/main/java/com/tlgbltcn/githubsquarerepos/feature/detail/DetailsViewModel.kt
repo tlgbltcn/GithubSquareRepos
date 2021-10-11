@@ -40,11 +40,8 @@ class DetailsViewModel @Inject constructor(private val repository: GithubReposit
     fun updateBookmark(value: Boolean, id: Long) {
         viewModelScope.launch {
             _isBookmarking.value = true
-            val job = launch {
-                repository.updateRepository(value = value, id = id)
-                delay(1000)
-            }
-            job.join()
+            repository.updateRepository(value = value, id = id)
+            delay(1000)
             _isBookmarking.value = false
             _showSnackBar.value = true
         }
