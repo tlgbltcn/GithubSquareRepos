@@ -28,7 +28,6 @@ object NetworkModule {
 
     private val MEDIA_TYPE = "application/json".toMediaType()
 
-    @Singleton
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor =
         HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
@@ -49,19 +48,15 @@ object NetworkModule {
         }
     }
 
-
-    @Singleton
     @Provides
     fun provideTokenInterceptor(): TokenInterceptor = TokenInterceptor()
 
     @Provides
-    @Singleton
     fun provideJson(): Json = Json {
         isLenient = true
         ignoreUnknownKeys = true
     }
 
-    @Singleton
     @Provides
     fun provideOkHttpClient(
         @ApplicationContext context: Context,
@@ -79,7 +74,6 @@ object NetworkModule {
     }
 
     @OptIn(ExperimentalSerializationApi::class)
-    @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient, json: Json): Retrofit {
         return with(Retrofit.Builder()) {
@@ -90,7 +84,6 @@ object NetworkModule {
         }
     }
 
-    @Singleton
     @Provides
     fun provideServices(retrofit: Retrofit): GithubService {
         return retrofit.create(GithubService::class.java)

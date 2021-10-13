@@ -14,6 +14,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
+
     @Provides
     @Singleton
     fun providesAppDatabase(@ApplicationContext context: Context): GithubDatabase =
@@ -27,6 +28,5 @@ object DatabaseModule {
             .build()
 
     @Provides
-    @Singleton
     fun providesRoundDao(database: GithubDatabase): RepositoryDao = database.repositoryDao()
 }
