@@ -2,6 +2,9 @@ package com.tlgbltcn.githubsquarerepos.di
 
 import android.content.Context
 import coil.util.CoilUtils
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.chuckerteam.chucker.api.RetentionManager
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.tlgbltcn.githubsquarerepos.BuildConfig
 import com.tlgbltcn.githubsquarerepos.data.remote.GithubService
@@ -30,6 +33,22 @@ object NetworkModule {
     fun provideLoggingInterceptor(): HttpLoggingInterceptor =
         HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
 
+    @Singleton
+    @Provides
+    fun provideChuckerInterceptor(@ApplicationContext context: Context): ChuckerInterceptor {
+        val chuckerCollector = ChuckerCollector(
+            context = context,
+            showNotification = true,
+            retentionPeriod = RetentionManager.Period.ONE_HOUR
+        )
+
+        return with(ChuckerInterceptor.Builder(context)) {
+            collector(chuckerCollector)
+            maxContentLength(250_000L)
+            build()
+        }
+    }
+
 
     @Singleton
     @Provides
@@ -47,11 +66,13 @@ object NetworkModule {
     fun provideOkHttpClient(
         @ApplicationContext context: Context,
         loggingInterceptor: HttpLoggingInterceptor,
+        chuckerInterceptor: ChuckerInterceptor,
         tokenInterceptor: TokenInterceptor
     ): OkHttpClient {
         return with(OkHttpClient.Builder()) {
             addInterceptor(loggingInterceptor)
             addInterceptor(tokenInterceptor)
+            addInterceptor(chuckerInterceptor)
             cache(CoilUtils.createDefaultCache(context))
             build()
         }
