@@ -7,15 +7,12 @@ import com.tlgbltcn.githubsquarerepos.di.IoDispatcher
 import com.tlgbltcn.githubsquarerepos.feature.list.Content
 import com.tlgbltcn.githubsquarerepos.feature.list.Error
 import com.tlgbltcn.githubsquarerepos.feature.list.Loading
-import com.tlgbltcn.githubsquarerepos.feature.list.RepositoryListState
 import com.tlgbltcn.githubsquarerepos.util.ioHandler
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class GithubRepository @Inject constructor(
     private val service: GithubService,
     private val dao: RepositoryDao,
@@ -23,19 +20,25 @@ class GithubRepository @Inject constructor(
 ) {
 
     suspend fun getRepos() = flow {
-        var state: RepositoryListState = Loading
         ioHandler(
             shouldFetch = { hasDatabaseAnyRecord().not() },
-            onCall = service::getRepos,
+            onCall = {
+                emit(Loading)
+                service.getRepos()
+            },
             onStoreData = this@GithubRepository::insertRepositories,
-            onQuery = this@GithubRepository::getRepositoriesFromLocal,
+            onQuery = {
+                emit(Loading)
+                getRepositoriesFromLocal()
+            },
             onSuccess = { list ->
-                Content(repos = list).also { state = it }
+                emit(
+                    Content(repos = list)
+                )
             },
             onFailure = { code, message ->
-                Error(code = code, message = message).also { state = it }
+                emit(Error(code = code, message = message))
             })
-        emit(state)
     }.flowOn(dispatcher)
 
     private fun hasDatabaseAnyRecord() = dao.getRepositoryCount() > 0
