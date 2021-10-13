@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ReposViewModel @Inject constructor(private val repository: GithubRepository) : ViewModel() {
 
-    private var _repos = MutableStateFlow<RepositoryListState>(Loading)
+    private var _repos = MutableStateFlow<RepositoryListState>(Idle)
     val repos = _repos.asStateFlow()
 
     fun fetchRepos() {
