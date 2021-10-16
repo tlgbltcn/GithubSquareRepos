@@ -4,7 +4,7 @@ import retrofit2.Response
 import java.lang.Exception
 
 suspend fun <T> ioHandler(
-    shouldFetch: suspend () -> Boolean,
+    shouldFetch: () -> Boolean,
     onQuery: suspend () -> T,
     onStoreData: suspend (T) -> Unit,
     onCall: suspend () -> Response<T>,
