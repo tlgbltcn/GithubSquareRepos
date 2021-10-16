@@ -40,6 +40,8 @@ TOKEN=XXX
 ...
 ```
 
+You can use either an existing one or a new one. In order to get [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) from Github follow the instructions.
+
 #### To-Do in Future 
 
 - Pagination
